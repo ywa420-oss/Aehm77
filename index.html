@@ -422,6 +422,14 @@
         .dark-mode .favorite-list-item:hover { background-color: #3a3a3a; }
         .remove-favorite { background: none; border: none; color: #dc3545; font-weight: 800; cursor: pointer; font-size: 1rem; margin-left: 10px; }
         .remove-favorite:hover { text-decoration: underline; }
+
+        /* تنسيقات نافذة الانذارات والغيابات */
+        #shared-warnings-list { list-style-type: none; padding: 0; margin-top: 20px; }
+        #shared-warnings-list .stage-item { border-right: 5px solid #dc3545; /* لون أحمر للإنذارات */ }
+        #shared-warnings-list .stage-item:hover { transform: translateX(-5px); }
+        #admin-actions { border-top: 1px solid var(--input-bg); padding-top: 20px; margin-top: 20px; }
+        #admin-actions h4 { color: #dc3545; margin-bottom: 15px; }
+
     </style>
 </head>
 <body>
@@ -519,9 +527,16 @@
                     </span>
                     <span class="button-text">مفضلتي</span>
                 </button>
+                
+                 <button class="grid-button" onclick="openModal('warningsPunishments')">
+                    <span class="button-icon" style="color: #dc3545;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </span>
+                    <span class="button-text">الإنذارات والغيابات</span>
+                </button>
                 <button class="grid-button" onclick="openModal('settings')">
-                    <span class="button-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                     <span class="button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0-.33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </span>
                     <span class="button-text">الإعدادات</span>
                 </button>
@@ -549,16 +564,28 @@
                     </span>
                     <span class="button-text">دعم ونشر التطبيق</span>
                 </button>
+                <button class="grid-button" onclick="openModal('calculator')">
+                    <span class="button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="6" y="4" width="12" height="4"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+                    </span>
+                    <span class="button-text">الآلة الحاسبة</span>
+                </button>
+                <button class="grid-button" onclick="openModal('notepad')">
+                    <span class="button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </span>
+                    <span class="button-text">سجل الملاحظات</span>
+                </button>
             </div>
             
         </main>
         
         <footer class="credits">
             <strong>جميع حقوق الملكية محفوظة لـ:</strong>
-            <span class="credit-line">طلاب قسم الالكترونيك والسيطرة</span>
-            <span class="credit-line">المبرمج: ايهم فراس جمال</span>
-            <span class="credit-line">المساعد: حسين علي دنيف</span>
-            <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">بإشراف: المهندسة مياس حارث</span>
+            <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">اشراف : المهندسة مياس حارث</span>
+            <span class="credit-line">المبرمج : ايهم فراس جمال</span>
+            <span class="credit-line">المساعد : حسين علي دنيف</span>
+            <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">قسم الكترونيك والسيطرة</span>
         </footer>
     </div>
     
@@ -598,7 +625,49 @@
             </p>
         </div>
     </div>
-    
+
+    <div id="warningsPunishments" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('warningsPunishments')">&times;</span>
+            <h2><span style="font-size: 1.5rem; color: #dc3545; margin-left: 10px;">⚠️</span> الإنذارات والغيابات (سجل مشترك)</h2>
+            
+            <div class="content-box">
+                <h4>ملاحظة هامة:</h4>
+                <p>هذا السجل يظهر الإنذارات الرسمية وحالات الغياب المسجلة من قبل الإدارة. يرجى الاطلاع عليه دورياً.</p>
+            </div>
+            
+            <ul id="shared-warnings-list" class="stage-list">
+                <li class="stage-item">
+                    <span>الطالب: أحمد سعيد (غ. م.)</span>
+                    <span style="color: #dc3545;">سجل: غياب غير مبرر</span>
+                </li>
+                 <li class="stage-item">
+                    <span>الطالب: علي محمود (إنذار)</span>
+                    <span style="color: #dc3545;">سجل: مخالفة للزي المدرسي</span>
+                </li>
+                <li class="stage-item">
+                    <span>الطالب: محمد جاسم (غ. م.)</span>
+                    <span style="color: #dc3545;">سجل: غياب غير مبرر 3 أيام</span>
+                </li>
+                 <li class="stage-item">
+                    <span>الطالب: ايهم فراس جمال (إنذار)</span>
+                    <span style="color: #dc3545;">سجل: إنذار رقم 1 (تأخير)</span>
+                </li>
+            </ul>
+            
+            <div id="admin-actions">
+                 <h4 style="color: var(--secondary-color); margin-bottom: 10px;">لإدارة السجلات (للكادر فقط):</h4>
+                 <div class="input-group">
+                    <label for="admin-search-student-name">اسم الطالب المراد إضافة سجل له:</label>
+                    <input type="text" id="admin-search-student-name" placeholder="أدخل اسم الطالب بالكامل">
+                </div>
+                <p id="admin-search-result" style="color: #dc3545; font-weight: 700; margin-top: 10px; display: none;">الرجاء إدخال اسم الطالب للبحث.</p>
+                <button class="login-button" style="background: linear-gradient(135deg, #00bcd4, #0077b5); margin-top: 15px;" onclick="searchAndEditAbsences()">
+                    بحث وإضافة سجل جديد
+                </button>
+            </div>
+        </div>
+    </div>
     <div id="technicalSupport" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('technicalSupport')">&times;</span>
@@ -760,6 +829,7 @@
                     5. استخدم أيقونة **"👤"** للوصول إلى بيانات حسابك. <br>
                     6. استخدم أيقونة **"🌙"** لتبديل وضع العرض.
                     7. استخدم زر **"🤖"** للوصول إلى **المساعد الذكي** لحل الأسئلة.
+                    8. استخدم زر **"⚠️"** للدخول إلى سجل **الإنذارات والغيابات** المشترك.
                 </p>
             </div>
         </div>
@@ -795,6 +865,76 @@
             <iframe id="book-iframe" src="" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
+
+    <!-- نافذة الآلة الحاسبة -->
+    <div id="calculator" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('calculator')">&times;</span>
+            <h2><span style="font-size: 1.5rem; color: var(--primary-color); margin-left: 10px;">🧮</span> الآلة الحاسبة</h2>
+            
+            <div class="calculator-container" style="margin-top: 20px;">
+                <input type="text" id="calc-display" class="calc-display" readonly style="width: 100%; padding: 15px; font-size: 1.5rem; border: 2px solid var(--input-bg); border-radius: 12px; background-color: var(--input-bg); color: var(--text-color); text-align: right; margin-bottom: 15px;">
+                
+                <div class="calc-buttons" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                    <button class="calc-btn" onclick="appendToCalc('7')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">7</button>
+                    <button class="calc-btn" onclick="appendToCalc('8')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">8</button>
+                    <button class="calc-btn" onclick="appendToCalc('9')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">9</button>
+                    <button class="calc-btn" onclick="appendToCalc('/')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">÷</button>
+                    
+                    <button class="calc-btn" onclick="appendToCalc('4')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">4</button>
+                    <button class="calc-btn" onclick="appendToCalc('5')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">5</button>
+                    <button class="calc-btn" onclick="appendToCalc('6')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">6</button>
+                    <button class="calc-btn" onclick="appendToCalc('*')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">×</button>
+                    
+                    <button class="calc-btn" onclick="appendToCalc('1')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">1</button>
+                    <button class="calc-btn" onclick="appendToCalc('2')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">2</button>
+                    <button class="calc-btn" onclick="appendToCalc('3')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">3</button>
+                    <button class="calc-btn" onclick="appendToCalc('-')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">−</button>
+                    
+                    <button class="calc-btn" onclick="appendToCalc('0')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">0</button>
+                    <button class="calc-btn" onclick="appendToCalc('.')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">.</button>
+                    <button class="calc-btn" onclick="clearCalc()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer; font-weight: 700;">C</button>
+                    <button class="calc-btn" onclick="appendToCalc('+')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">+</button>
+                    
+                    <button class="calc-btn" onclick="calculateResult()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--primary-color); color: white; border: none; cursor: pointer; font-weight: 700; grid-column: span 4;">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة سجل الملاحظات -->
+    <div id="notepad" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('notepad')">&times;</span>
+            <h2><span style="font-size: 1.5rem; color: var(--primary-color); margin-left: 10px;">📝</span> سجل الملاحظات</h2>
+            
+            <div class="notepad-container" style="margin-top: 20px;">
+                <div class="input-group">
+                    <label for="note-title">عنوان الملاحظة:</label>
+                    <input type="text" id="note-title" placeholder="أدخل عنوان الملاحظة..." style="width: 100%; padding: 12px; border: 2px solid var(--input-bg); border-radius: 12px; background-color: var(--input-bg); color: var(--text-color); font-size: 1rem;">
+                </div>
+                
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="note-content">محتوى الملاحظة:</label>
+                    <textarea id="note-content" placeholder="اكتب ملاحظتك هنا..." style="width: 100%; padding: 12px; border: 2px solid var(--input-bg); border-radius: 12px; background-color: var(--input-bg); color: var(--text-color); font-size: 1rem; min-height: 150px; resize: vertical;"></textarea>
+                </div>
+                
+                <button class="main-button" style="height: 50px; margin-top: 15px;" onclick="addNote()">
+                    <span class="button-text">حفظ الملاحظة</span>
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px; border-top: 1px solid var(--input-bg); padding-top: 20px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">ملاحظاتي:</h3>
+                <ul id="notes-list" style="list-style: none; padding: 0;">
+                </ul>
+                <p id="empty-notes" style="text-align: center; color: #777; font-weight: 700; margin-top: 20px;">
+                    لا توجد ملاحظات حتى الآن. أضف ملاحظتك الأولى!
+                </p>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         
@@ -895,10 +1035,30 @@
 
         const vocationalSections = {
             elec: { name: "قسم الكهرباء", link: officialLink, stages: {
-                // تم تحديث الأسماء التخصصية لتعكس التسميات القياسية لملء الفراغات التي لم يتم تزويدها بكتب جديدة.
-                'elec_1': { name: stageNames['1'], books: [...generalSubjects['1'], createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الأول", "إصدار 2024"), createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الأول", "إصدار 2024")] },
-                'elec_2': { name: stageNames['2'], books: [...generalSubjects['2'], createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثاني", "إصدار 2024"), createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثاني", "إصدار 2024")] },
-                'elec_3': { name: stageNames['3'], books: [...generalSubjects['3'], createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثالث", "إصدار 2024"), createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثالث", "إصدار 2024")] }
+                'elec_1': { name: stageNames['1'], books: [
+                    ...generalSubjects['1'],
+                    // العلوم الصناعية الكهربائية - المرحلة الأولى
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1hHiKutlIOVzBWHGoHYFgxY3QbrxnSpgv/view?usp=drivesdk"),
+                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الأول", "إصدار 2024"),
+                    // التدريب العملي الكهربائي - المرحلة الأولى (الرابط المطلوب)
+                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1VvSKfj5uDh9jWcMS6Z54b85F5StLMcYM/view?usp=drivesdk"), 
+                ] },
+                'elec_2': { name: stageNames['2'], books: [
+                    ...generalSubjects['2'],
+                    // العلوم الصناعية الكهربائية - المرحلة الثانية
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1V3O2fG3Ay0wpRzHu_uTY5EakgsqQI-GA/view?usp=drivesdk"),
+                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الثاني", "إصدار 2024"),
+                    // التدريب العملي الكهربائي - المرحلة الثانية
+                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1UO-jcnm7BhIW7–NkdAcmt2YQkO-JBZ-/view?usp=drivesdk"),
+                ] },
+                'elec_3': { name: stageNames['3'], books: [
+                    ...generalSubjects['3'],
+                    // العلوم الصناعية الكهربائية - المرحلة الثالثة
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1nDagm7HFt1lj4vsOsk6_dSYgwBxVGdIG/view?usp=drivesdk"),
+                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الثالث", "إصدار 2024"),
+                    // التدريب العملي الكهربائي - المرحلة الثالثة
+                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1yC8O086OBo66IHPrVQfB0HCHFR41fmYF/view?usp=drivesdk"),
+                ] }
             }},
             elecs: { name: "قسم الإلكترونيك والسيطرة", link: officialLink, stages: {
                 // تحديث كتب الإلكترونيك والسيطرة بالكتب الجديدة المقدمة
@@ -906,9 +1066,10 @@
                     ...generalSubjects['1'],
                     // أول إلكترون علوم
                     createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/16JpBfQ_RJyYwqDsUmMdL_NYsayBanaLq/view?usp=drivesdk"),
-                    // الصف الاول الكترونيك والسيطرة (الرسم الصناعي)
-                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/126WyRH3mv8CuI0yrGkeiTgPSHE5G3qL_/view?usp=drivesdk"),
-                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الأول", "إصدار 2024"), 
+                    // الرسم الصناعي الإلكتروني - تم إزالة رابط التدريب العملي منه
+                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الأول", "إصدار 2024"), 
+                    // التدريب العملي الإلكتروني - تم إضافة رابط التدريب العملي (مرحلة أولى) المطلوب
+                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/126WyRH3mv8CuI0yrGkeiTgPSHE5G3qL_/view?usp=drivesdk"), 
                 ] },
                 'elecs_2': { name: stageNames['2'], books: [
                     ...generalSubjects['2'],
@@ -916,7 +1077,8 @@
                     createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MyvqU9lKs3ZfK_aeak4L-mdNUHOqwTn5/view?usp=drivesdk"),
                     // الرسم الصناعي الكترونيك وسيطرة الثاني
                     createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1Zl094Z0apla7_ZQPQ01DHs-PUfKccy9G/view?usp=drivesdk"),
-                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثاني", "إصدار 2024"), 
+                    // التدريب العملي الإلكتروني - تم إضافة رابط التدريب العملي (مرحلة ثانية) المطلوب
+                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MB0u1mEz5tgjhRV-gAGZv5dwHRTwF8SR/view?usp=drivesdk"), 
                 ] },
                 'elecs_3': { name: stageNames['3'], books: [
                     ...generalSubjects['3'],
@@ -934,7 +1096,8 @@
                     ...generalSubjects['1'],
                     // العلوم تكنلوجيا إعلام الاولى
                     createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1OK95pQuOg3z40WyGFONyy-oYhHkRiUDD/view?usp=drivesdk"),
-                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الأول", "إصدار 2024"), 
+                    // الرسم مرحلة أولى تكنلوجيا إعلام (تم التحديث)
+                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1imUBO6mxJcQcUhEKEpgs_CQ-Hr1uH3Xu/view?usp=drivesdk"), 
                     // العملي تكنلوجيا إعلام الاول
                     createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1HgOdWicSSPoL8YWCj2cqMETpnpW1MVP9/view?usp=drivesdk"),
                 ] },
@@ -980,8 +1143,10 @@
                     ...generalSubjects['3'],
                     // العلوم الاجهزه طبية الصف الثالث مهني 
                     createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1RFvJKEfKmmDrUimYpd60iVfb05g-hQcQ/view?usp=drivesdk"),
-                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثالث", "إصدار 2024"), 
-                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثالث", "إصدار 2024"), 
+                    // رسم مرحلة ثالثه اجهزه طبية (تم التحديث)
+                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1qXF-gEcc1bFPxMQsN8k4eARjNvhqBZNv/view?usp=drivesdk"), 
+                    // العملي اجهزه طبية مرحلة ثالثة (تم التحديث)
+                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1elVyGMVsHGdTdHFzGhJfS6W2v0Ki2Idy/view?usp=drivesdk"), 
                 ] }
             }},
             general: { name: "المواد العامة المشتركة", link: officialLink, stages: {
@@ -1110,6 +1275,10 @@
                 updateProfileModal(); 
             } else if (modalId === 'myFavorites') {
                 displayFavorites();
+            } else if (modalId === 'warningsPunishments') {
+                // دالة محاكاة لتحديث قائمة الإنذارات عند الفتح
+                // يمكنك تجاهل هذا إذا لم تكن بحاجة لقائمة إنذارات تفاعلية
+                updateSimulatedWarnings();
             }
         }
         
@@ -1249,7 +1418,14 @@
                         </button>
                     `;
                     // التعديل: ربط عنصر المفضلة بدالة فتح القارئ
-                    const book = vocationalSections[fav.sectionKey].stages[`${fav.sectionKey}_${fav.stageName.split(' ')[0]}`]?.books.find(b => b.id === fav.id);
+                    // نحتاج للبحث عن الكائن الكامل للمادة لضمان وجود الرابط
+                    let book = null;
+                    for (const stageKey in vocationalSections[fav.sectionKey].stages) {
+                         const stage = vocationalSections[fav.sectionKey].stages[stageKey];
+                         book = stage.books.find(b => b.id === fav.id);
+                         if (book) break;
+                    }
+                    
                     if (book && book.link && book.link !== '#') {
                         listItem.onclick = () => openBookInReader(book);
                     }
@@ -1392,6 +1568,29 @@
             // تعيين رابط التضمين في iframe
             bookIframe.src = embedLink;
 
+            // **التعديل لحل مشكلة 404/الأذونات المحتملة في الـ iframe**
+            // يتم فتح الرابط في نافذة جديدة إذا استغرق تحميل الـ iframe وقتاً طويلاً كبديل.
+            bookIframe.onload = function() {
+                // قد لا يعمل هذا الحدث دائماً مع روابط خارجية، لكن لضمان عمل الرابط
+            };
+            
+            // احتياط: فتح الرابط مباشرة في نافذة جديدة في حالة عدم تحميل الـ iframe بشكل صحيح
+            // نفتح نافذة جديدة بعد فترة زمنية قصيرة كحل احتياطي للروابط التي قد لا تُفتح في وضع التضمين
+            setTimeout(() => {
+                // إذا لم يتم تحميل الـ iframe أو كانت هناك مشكلة في العرض، نفتح الرابط في نافذة جديدة
+                // هذا يضمن أن المستخدم يستطيع الوصول للمادة حتى لو فشل القارئ الداخلي
+                const originalLink = book.link.replace('/view?usp=drivesdk', '/view?usp=sharing');
+                bookIframe.onerror = function() {
+                    alert(`فشل تحميل القارئ الرقمي. سيتم فتح المادة "${book.name}" في نافذة متصفح جديدة.`);
+                    window.open(originalLink, '_blank', 'noopener,noreferrer');
+                };
+
+                // إعادة تعيين src لإعادة محاولة التحميل أو لتفعيل onerror
+                bookIframe.src = bookIframe.src; 
+                
+            }, 3000); 
+
+
             // فتح النافذة المنبثقة للقارئ
             openModal('bookReader');
         }
@@ -1460,6 +1659,109 @@
             }, 2000); // تأخير لمدة ثانيتين
         }
         
+        // ===========================================
+        // ==    دالة محاكاة البحث والتعديل (مضافة بناءً على طلبك)    ==
+        // ===========================================
+
+        const simulatedWarningsData = [
+            { student: "أحمد سعيد", record: "غياب غير مبرر", date: "2025/11/01" },
+            { student: "علي محمود", record: "مخالفة للزي المدرسي", date: "2025/10/28" },
+            { student: "محمد جاسم", record: "غياب غير مبرر 3 أيام", date: "2025/10/25" },
+            { student: "ايهم فراس جمال", record: "إنذار رقم 1 (تأخير)", date: "2025/10/10" },
+        ];
+        
+        function updateSimulatedWarnings() {
+             const sharedList = document.getElementById('shared-warnings-list');
+             if (!sharedList) return;
+             
+             // مسح القائمة الحالية (لتجنب التكرار عند إعادة فتح الـ modal)
+             sharedList.innerHTML = '';
+             
+             simulatedWarningsData.forEach(data => {
+                  const listItem = document.createElement('li');
+                  listItem.classList.add('stage-item');
+                  listItem.innerHTML = `
+                      <span>الطالب: ${data.student}</span>
+                      <span style="color: #dc3545;">سجل: ${data.record} (تاريخ: ${data.date})</span>
+                  `;
+                  sharedList.appendChild(listItem);
+             });
+        }
+
+
+        /**
+         * دالة لمحاكاة البحث عن طالب بالاسم وفتح نافذة تعديل وهمية.
+         * ملاحظة: تتطلب قاعدة بيانات حقيقية للتطبيق الفعلي.
+         */
+        function searchAndEditAbsences() {
+            const studentNameInput = document.getElementById('admin-search-student-name');
+            const studentName = studentNameInput.value.trim();
+            const searchResultElement = document.getElementById('admin-search-result');
+            const sharedList = document.getElementById('shared-warnings-list');
+
+            // قائمة محاكاة للطلاب المسجلين
+            const studentsDatabase = [
+                "أحمد سعيد",
+                "علي محمود",
+                "سارة خليل",
+                "محمد جاسم",
+                "ايهم فراس جمال" // اسم المبرمج للتجربة
+            ];
+
+            if (studentName === "") {
+                searchResultElement.textContent = "الرجاء إدخال اسم الطالب للبحث.";
+                searchResultElement.style.display = 'block';
+                return;
+            }
+            
+            // إخفاء رسالة الخطأ قبل البحث
+            searchResultElement.style.display = 'none';
+
+            // التحقق من وجود الاسم (البحث يجب أن يكون متطابقاً للمحاكاة)
+            const foundStudent = studentsDatabase.find(name => name === studentName);
+
+            if (foundStudent) {
+                // إذا تم العثور على الطالب، افتح نافذة تعديل وهمية
+                const studentRecord = getStudentSimulatedRecord(foundStudent);
+                
+                const newWarning = prompt(`تم العثور على سجل الطالب: ${foundStudent}. 
+سجله الحالي (محاكاة): ${studentRecord.warnings} إنذار و ${studentRecord.absences} يوم غياب.
+
+أدخل الآن أي إنذار أو غياب جديد لهذا الطالب:`);
+
+                if (newWarning !== null && newWarning.trim() !== "") {
+                    // محاكاة إضافة السجل الجديد إلى القائمة المشتركة
+                    const today = new Date().toLocaleDateString('ar-IQ', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    
+                    const newRecord = { student: foundStudent, record: newWarning.trim(), date: today };
+                    simulatedWarningsData.unshift(newRecord); // إضافة السجل الجديد في البداية
+                    
+                    updateSimulatedWarnings(); // إعادة رسم القائمة
+
+                    alert(`تمت إضافة السجل بنجاح للطالب ${foundStudent}. هذا السجل سيظهر الآن للجميع في القائمة المشتركة.`);
+                } else if (newWarning !== null) {
+                     alert(`لم يتم إضافة سجل جديد للطالب ${foundStudent}.`);
+                }
+                
+            } else {
+                // إذا لم يتم العثور على الطالب
+                searchResultElement.textContent = `لم يتم العثور على الطالب: "${studentName}". يرجى التأكد من كتابة الاسم بالكامل.`;
+                searchResultElement.style.display = 'block';
+            }
+        }
+
+        /**
+         * دالة محاكاة للحصول على سجل طالب
+         */
+        function getStudentSimulatedRecord(name) {
+            // بسيطة لغرض المحاكاة
+            if (name.includes('أحمد سعيد')) return { warnings: 1, absences: 0 };
+            if (name.includes('علي محمود')) return { warnings: 0, absences: 5 };
+            if (name.includes('سارة خليل')) return { warnings: 1, absences: 0 };
+            if (name.includes('ايهم فراس جمال')) return { warnings: 2, absences: 0 };
+            return { warnings: 0, absences: 0 };
+        }
+        
         // تهيئة الوضع الليلي/النهاري وحالة الدخول عند التحميل 
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
@@ -1468,10 +1770,10 @@
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 modeIcon.textContent = '☀️';
-                autoDarkModeCheckbox.checked = true;
+                if(autoDarkModeCheckbox) autoDarkModeCheckbox.checked = true;
             } else {
                 modeIcon.textContent = '🌙';
-                autoDarkModeCheckbox.checked = false;
+                if(autoDarkModeCheckbox) autoDarkModeCheckbox.checked = false;
             }
             
             // تحقق من حالة الدخول
@@ -1482,14 +1784,9 @@
                 mainAppContainer.style.display = 'block';
                 
                 // إظهار الأزرار الجانبية عند التحميل إذا كان مسجلاً دخوله
-                modeToggle.style.display = 'flex';
-                profileButton.style.display = 'flex'; 
-                supportFab.style.display = 'flex';
-                
-                // التأكد من إزالة فئة الإخفاء في البداية
-                modeToggle.classList.remove('hidden');
-                profileButton.classList.remove('hidden');
-                supportFab.classList.remove('hidden');
+                if (modeToggle) { modeToggle.style.display = 'flex'; modeToggle.classList.remove('hidden'); }
+                if (profileButton) { profileButton.style.display = 'flex'; profileButton.classList.remove('hidden'); }
+                if (supportFab) { supportFab.style.display = 'flex'; supportFab.classList.remove('hidden'); }
                 
                 updateProfileModal();
             } else {
@@ -1497,15 +1794,18 @@
                 mainAppContainer.style.display = 'none';
                 
                 // التأكد من إخفاء الأزرار عند شاشة الدخول
-                modeToggle.style.display = 'none';
-                profileButton.style.display = 'none';
-                supportFab.style.display = 'none';
+                if (modeToggle) modeToggle.style.display = 'none';
+                if (profileButton) profileButton.style.display = 'none';
+                if (supportFab) supportFab.style.display = 'none';
             }
             
             // تهيئة قائمة الأقسام عند التحميل لأول مرة
             if (sectionsContainer) {
                  populateSections();
             }
+            
+            // تهيئة قائمة الانذارات
+            updateSimulatedWarnings();
         });
 
         // إغلاق النافذة عند النقر خارجها
@@ -1516,9 +1816,133 @@
         }
         
         // ربط زر تبديل الوضع الخارجي بدالة التبديل
-        modeToggle.addEventListener('click', toggleDarkMode);
+        if (modeToggle) modeToggle.addEventListener('click', toggleDarkMode);
         
-        // ربط دالة المحاكاة بحدث الضغط على زر الإرسال (تم ربطها بزر الإرسال و Enter في الـ HTML)
+        // ربط حقل البحث في نافذة الإدارة بحدث الإدخال
+        const adminSearchInput = document.getElementById('admin-search-student-name');
+        if (adminSearchInput) {
+            adminSearchInput.addEventListener('keyup', (event) => {
+                if (event.keyCode === 13) {
+                    searchAndEditAbsences();
+                }
+            });
+        }
+
+        // ===========================================
+        // =    وظائف الآلة الحاسبة                  =
+        // ===========================================
+
+        function appendToCalc(value) {
+            const display = document.getElementById('calc-display');
+            display.value += value;
+        }
+
+        function clearCalc() {
+            const display = document.getElementById('calc-display');
+            display.value = '';
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('calc-display');
+            try {
+                const result = eval(display.value);
+                display.value = result;
+            } catch (error) {
+                display.value = 'خطأ';
+                setTimeout(() => {
+                    display.value = '';
+                }, 1500);
+            }
+        }
+
+        // ===========================================
+        // =    وظائف سجل الملاحظات                 =
+        // ===========================================
+
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('notes');
+            if (savedNotes) {
+                return JSON.parse(savedNotes);
+            }
+            return [];
+        }
+
+        function saveNotes(notes) {
+            localStorage.setItem('notes', JSON.stringify(notes));
+        }
+
+        function addNote() {
+            const titleInput = document.getElementById('note-title');
+            const contentInput = document.getElementById('note-content');
+            
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+            
+            if (!title || !content) {
+                alert('يرجى ملء عنوان الملاحظة والمحتوى');
+                return;
+            }
+            
+            const note = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                date: new Date().toLocaleDateString('ar-SA')
+            };
+            
+            let notes = loadNotes();
+            notes.unshift(note);
+            
+            saveNotes(notes);
+            
+            titleInput.value = '';
+            contentInput.value = '';
+            
+            displayNotes();
+            
+            alert('تم حفظ الملاحظة بنجاح!');
+        }
+
+        function displayNotes() {
+            const notes = loadNotes();
+            const notesList = document.getElementById('notes-list');
+            const emptyMessage = document.getElementById('empty-notes');
+            
+            notesList.innerHTML = '';
+            
+            if (notes.length === 0) {
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+                
+                notes.forEach(note => {
+                    const noteItem = document.createElement('li');
+                    noteItem.style.cssText = 'background-color: var(--input-bg); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-right: 4px solid var(--primary-color);';
+                    
+                    noteItem.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <h4 style="color: var(--primary-color); margin-bottom: 8px; margin-top: 0;">${note.title}</h4>
+                                <p style="color: var(--text-color); margin: 8px 0; white-space: pre-wrap; word-wrap: break-word;">${note.content}</p>
+                                <small style="color: #999; display: block; margin-top: 8px;">📅 ${note.date}</small>
+                            </div>
+                            <button onclick="deleteNote(${note.id})" style="background-color: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; margin-right: 10px;">حذف</button>
+                        </div>
+                    `;
+                    
+                    notesList.appendChild(noteItem);
+                });
+            }
+        }
+
+        function deleteNote(noteId) {
+            if (confirm('هل أنت متأكد من حذف هذه الملاحظة؟')) {
+                let notes = loadNotes();
+                notes = notes.filter(note => note.id !== noteId);
+                saveNotes(notes);
+                displayNotes();
+            }
+        }
 
     </script>
 </body>
