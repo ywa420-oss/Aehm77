@@ -186,6 +186,107 @@
         .credits .credit-line { display: block; margin-bottom: 3px; }
 
         /* ==================================== */
+        /* تنسيقات شاشة الترحيب (Splash Screen) */
+        /* ==================================== */
+        .splash-screen {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-in-out 3.5s forwards;
+        }
+
+        .splash-content {
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .splash-icon {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .splash-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffa500;
+            margin-bottom: 15px;
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+
+        .splash-subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out 0.6s backwards;
+        }
+
+        .splash-progress-container {
+            width: 250px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 10px;
+            margin: 30px auto;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out 0.9s backwards;
+        }
+
+        .splash-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00bcd4, #ffa500);
+            border-radius: 10px;
+            animation: progress 3s ease-in-out forwards;
+        }
+
+        .splash-loading-text {
+            font-size: 0.95rem;
+            color: #999;
+            margin-top: 20px;
+            animation: fadeIn 0.8s ease-out 1.2s backwards;
+        }
+
+        .splash-footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.85rem;
+            color: #666;
+            animation: fadeIn 0.8s ease-out 1.5s backwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; visibility: visible; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* ==================================== */
         /* تنسيقات النوافذ المنبثقة (Modal) */
         /* ==================================== */
         .modal { 
@@ -430,9 +531,355 @@
         #admin-actions { border-top: 1px solid var(--input-bg); padding-top: 20px; margin-top: 20px; }
         #admin-actions h4 { color: #dc3545; margin-bottom: 15px; }
 
+
+        /* تنسيقات ميزة التدريب على الرسم الهندسي */
+        .drawing-board-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background-color: #f0e6d2; /* لون خشبي فاتح للبورد */
+            border: 10px solid #8d6e63;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        #drawingCanvas {
+            width: 100%;
+            height: 100%;
+        }
+        .t-square {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .t-square::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -20px;
+            width: 40px;
+            height: 44px;
+            background-color: #333;
+        }
+        .drawing-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .draw-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        /* ==================================== */
+        /* تنسيقات نافذة تدريب الرسم المنبثقة */
+        /* ==================================== */
+
+        .drawing-training-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .drawing-training-modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .drawing-training-modal-content {
+            background-color: var(--background-app);
+            padding: 40px 30px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            animation: slideUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .drawing-training-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: all var(--transition-speed) ease;
+            background-color: var(--input-bg);
+        }
+
+        .drawing-training-modal-close:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .drawing-training-modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .drawing-training-modal-header .icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .drawing-training-modal-header h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .drawing-training-modal-header p {
+            color: var(--text-color);
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .drawing-training-modal-body {
+            margin-bottom: 30px;
+        }
+
+        .drawing-training-section {
+            margin-bottom: 25px;
+        }
+
+        .drawing-training-section h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drawing-training-section h3 .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .drawing-training-section p {
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .drawing-training-section .instructor-name {
+            background-color: var(--input-bg);
+            padding: 15px;
+            border-right: 4px solid var(--primary-color);
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .tools-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .tools-table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tools-table th {
+            padding: 12px;
+            text-align: right;
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .tools-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--input-bg);
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .tools-table tbody tr:hover {
+            background-color: var(--input-bg);
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .tools-table .tool-number {
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .tools-table .tool-name {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, rgba(0, 121, 107, 0.1), rgba(0, 188, 212, 0.1));
+            border-right: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .important-note .note-icon {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .important-note p {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .drawing-training-modal-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--input-bg);
+        }
+
+        .drawing-training-modal-footer button {
+            background: linear-gradient(135deg, var(--primary-color), #004d40);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .drawing-training-modal-footer button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 121, 107, 0.6);
+        }
+
+        .drawing-training-modal-footer button:active {
+            transform: translateY(0);
+        }
+
+        .dark-mode .tools-table tbody tr:hover {
+            background-color: #2a2a2a;
+        }
+
+        .dark-mode .drawing-training-modal-close {
+            background-color: #2d2d2d;
+        }
+
+        @media (max-width: 600px) {
+            .drawing-training-modal-content {
+                width: 95%;
+                padding: 30px 20px;
+            }
+
+            .drawing-training-modal-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .drawing-training-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .tools-table th,
+            .tools-table td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+
+            .drawing-training-modal-close {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        .developer-link { 
+            color: #007bff; /* لون أزرق */
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+        .developer-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    
     </style>
 </head>
 <body>
+    <!-- شاشة الترحيب (Splash Screen) -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">🏛️</div>
+            <h1 class="splash-title">إعدادية المنصور الصناعية</h1>
+            <p class="splash-subtitle">مرحباً بك في تطبيق الإعدادية</p>
+            <div class="splash-progress-container">
+                <div class="splash-progress-bar"></div>
+            </div>
+            <p class="splash-loading-text">جاري تحميل البيانات الأساسية...</p>
+        </div>
+        <p class="splash-footer">© إعدادية المنصور الصناعية 2025</p>
+    </div>
+
 
     <div class="login-container" id="login-screen">
         <header class="app-header">
@@ -521,7 +968,12 @@
             </button>
 
             <div class="grid-buttons">
-                <button class="grid-button" onclick="openModal('myFavorites')">
+
+                <button class="grid-button" onclick="openDrawingTrainingModal(); openModal('drawingTraining'); initDrawingBoard();">
+                    <span class="button-icon">📐</span>
+                    <span class="button-text">تدريب الرسم الهندسي</span>
+                </button>
+                    <button class="grid-button" onclick="openModal('myFavorites')">
                     <span class="button-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="var(--primary-color)" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                     </span>
@@ -578,13 +1030,24 @@
                 </button>
             </div>
             
-        </main>
+        
+        <div class="credits">
+            <strong>حقوق النشر © 2025-2026</strong>
+            <span class="credit-line">بإشراف: المهندسه مياس حارث</span>
+            <span class="credit-line">
+                تم التطوير بواسطة: 
+                <a href="https://t.me/pg_virus3" target="_blank" class="developer-link">أيهم فراس جمال</a>
+            </span>
+            <span class="credit-line">مساعدة فريق: نخبة التقنيين - Tech Elite Team</span>
+        </div>
+    
+    </main>
         
         <footer class="credits">
-            <strong>جميع حقوق الملكية محفوظة لـ:</strong>
-            <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">اشراف : المهندسة مياس حارث</span>
-            <span class="credit-line">المبرمج : ايهم فراس جمال</span>
-            <span class="credit-line">المساعد : حسين علي دنيف</span>
+            <strong> :</strong>
+            <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">  </span>
+            <span class="credit-line"<المبرمج : حسين عادل ></span>
+            <span class="credit-line">المساعد : احمد عباس </span>
             <span class="credit-line" style="font-weight: 800; color: var(--primary-color);">قسم الكترونيك والسيطرة</span>
         </footer>
     </div>
@@ -873,30 +1336,34 @@
             <h2><span style="font-size: 1.5rem; color: var(--primary-color); margin-left: 10px;">🧮</span> الآلة الحاسبة</h2>
             
             <div class="calculator-container" style="margin-top: 20px;">
-                <input type="text" id="calc-display" class="calc-display" readonly style="width: 100%; padding: 15px; font-size: 1.5rem; border: 2px solid var(--input-bg); border-radius: 12px; background-color: var(--input-bg); color: var(--text-color); text-align: right; margin-bottom: 15px;">
+                <input type="text" id="calc-display" class="calc-display" readonly style="width: 100%; padding: 15px; font-size: 1.8rem; font-weight: 700; border: 2px solid var(--primary-color); border-radius: 12px; background-color: var(--input-bg); color: var(--text-color); text-align: right; margin-bottom: 15px; letter-spacing: 2px;">
                 
                 <div class="calc-buttons" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                    <button class="calc-btn" onclick="appendToCalc('7')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">7</button>
-                    <button class="calc-btn" onclick="appendToCalc('8')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">8</button>
-                    <button class="calc-btn" onclick="appendToCalc('9')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">9</button>
-                    <button class="calc-btn" onclick="appendToCalc('/')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">÷</button>
+                    <!-- صف الأزرار الأول: مسح وحذف والعمليات -->
+                    <button class="calc-btn" onclick="clearCalc()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer; font-weight: 700; grid-column: span 2; transition: all 0.2s;">مسح</button>
+                    <button class="calc-btn" onclick="deleteLastChar()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s;">⌫</button>
+                    <button class="calc-btn" onclick="appendToCalc('/')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s;">÷</button>
                     
-                    <button class="calc-btn" onclick="appendToCalc('4')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">4</button>
-                    <button class="calc-btn" onclick="appendToCalc('5')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">5</button>
-                    <button class="calc-btn" onclick="appendToCalc('6')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">6</button>
-                    <button class="calc-btn" onclick="appendToCalc('*')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">×</button>
+                    <!-- الأرقام والعمليات -->
+                    <button class="calc-btn" onclick="appendToCalc('7')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">7</button>
+                    <button class="calc-btn" onclick="appendToCalc('8')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">8</button>
+                    <button class="calc-btn" onclick="appendToCalc('9')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">9</button>
+                    <button class="calc-btn" onclick="appendToCalc('*')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s;">×</button>
                     
-                    <button class="calc-btn" onclick="appendToCalc('1')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">1</button>
-                    <button class="calc-btn" onclick="appendToCalc('2')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">2</button>
-                    <button class="calc-btn" onclick="appendToCalc('3')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">3</button>
-                    <button class="calc-btn" onclick="appendToCalc('-')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">−</button>
+                    <button class="calc-btn" onclick="appendToCalc('4')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">4</button>
+                    <button class="calc-btn" onclick="appendToCalc('5')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">5</button>
+                    <button class="calc-btn" onclick="appendToCalc('6')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">6</button>
+                    <button class="calc-btn" onclick="appendToCalc('-')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s;">−</button>
                     
-                    <button class="calc-btn" onclick="appendToCalc('0')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">0</button>
-                    <button class="calc-btn" onclick="appendToCalc('.')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700;">.</button>
-                    <button class="calc-btn" onclick="clearCalc()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer; font-weight: 700;">C</button>
-                    <button class="calc-btn" onclick="appendToCalc('+')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700;">+</button>
+                    <button class="calc-btn" onclick="appendToCalc('1')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">1</button>
+                    <button class="calc-btn" onclick="appendToCalc('2')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">2</button>
+                    <button class="calc-btn" onclick="appendToCalc('3')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">3</button>
+                    <button class="calc-btn" onclick="appendToCalc('+')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: #ff9800; color: white; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s;">+</button>
                     
-                    <button class="calc-btn" onclick="calculateResult()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--primary-color); color: white; border: none; cursor: pointer; font-weight: 700; grid-column: span 4;">=</button>
+                    <button class="calc-btn" onclick="appendToCalc('0')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s; grid-column: span 2;">0</button>
+                    <button class="calc-btn" onclick="appendToCalc('.')" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--primary-color); cursor: pointer; font-weight: 700; transition: all 0.2s;">.</button>
+                    
+                    <button class="calc-btn" onclick="calculateResult()" style="padding: 15px; font-size: 1.2rem; border-radius: 10px; background-color: var(--primary-color); color: white; border: none; cursor: pointer; font-weight: 700; grid-column: span 4; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0, 121, 107, 0.4);">=</button>
                 </div>
             </div>
         </div>
@@ -990,7 +1457,7 @@
         }
 
         // الرابط الخاص بكتاب العربي للمرحلة الأولى (تم الإبقاء عليه كما هو)
-        const arabicBookLink = "https://drive.google.com/file/d/1akmTSA25Jhc_e7dEvuilVp-j5yHtskAa/view?usp=drivesdk";
+        const arabicBookLink = "https://drive.google.com/file/d/1K4Sh-k50MdJonN8eBERWsJQ2dY3qvbqM/preview";
 
 
         const stageNames = {
@@ -1003,33 +1470,33 @@
         const generalSubjects = {
             '1': [
                 // المواد العامة للمرحلة الأولى - تم الإبقاء على القديم، لا يوجد جديد
-                createSubject("الطبيعيات", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1Cksio3xL_nWvID6Y5dE9UdsmUTfYVKgP/view?usp=drivesdk"),
+                createSubject("الطبيعيات", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/13gNIdTfUpQS9sPtA4mKZcuIMieOo242j/preview"),
                 createSubject("اللغة العربية", "كتاب أساسي", "الأول", "إصدار 2024", arabicBookLink), 
-                createSubject("الرياضيات", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1jaw_uezg0dqvksQjw8eSpaFZcWZ9xioo/view?usp=drivesdk"),
-                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1elxsf26Ak1CwQuDWQpyShaCrV2APz_5s/view?usp=drivesdk"),
-                createSubject("التربية الإسلامية", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1VDPFugXETjtVZ3hk3dJs_BxHaEwJkQrq/view?usp=drivesdk")
+                createSubject("الرياضيات", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1UV0JumL_Ect_cdkOdjcKzyLr-mB-X6vU/preview"),
+                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1K5erclI6vetKB8Img-kZsmEaa0yfPFsD/preview"),
+                createSubject("التربية الإسلامية", "كتاب أساسي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1e4GRZhD9JMBEA_g8OS-Qqy6iXDT-F54D/preview")
             ],
             // تحديث المرحلة الثانية بالروابط الجديدة المطلوبة
             '2': [
                 // تحديث الطبيعيات
-                createSubject("الطبيعيات", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MOGVruBqWuYNpOWL9V7wfvicdvu9yljH/view?usp=drivesdk"),
+                createSubject("الطبيعيات", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1pEdZM4e3sg2StYLM9Ijt07m937f7wMOc/preview"),
                 // تحديث اللغة العربية
-                createSubject("اللغة العربية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1mQj5m_u-J2L69I2Y8eqNCNqROes_s48e/view?usp=drivesdk"),
-                createSubject("الرياضيات", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1l3T0G-_lJ8BPnOaA1PrJeouB7ymIDeiQ/view?usp=drivesdk"),
+                createSubject("اللغة العربية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1mQj5m_u-J2L69I2Y8eqNCNqROes_s48e/preview"),
+                createSubject("الرياضيات", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1N9-2fp5azs1baCgy2wZKEojE60teeGac/preview"),
                 // تحديث اللغة الإنكليزية
-                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/17-fpF6uAwMBRaCcAY21GyK4lp53Dyfoy/view?usp=drivesdk"),
-                createSubject("التربية الإسلامية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/13Q5_teRTV2ppJvoCxJWODgSqYsWLR7PF/view?usp=drivesdk")
+                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/17-fpF6uAwMBRaCcAY21GyK4lp53Dyfoy/preview"),
+                createSubject("التربية الإسلامية", "كتاب أساسي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1rF1gy-iXkgnUMzrN7CntKtQav-HvSM7f/preview")
             ],
             // تحديث مواد المرحلة الثالثة (الثالث المهني) بالروابط المطلوبة
             '3': [
-                createSubject("الطبيعيات", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1CNyadt2e29Dhp7hbfHsGcBv0hSVGjliU/view?usp=drivesdk"),
+                createSubject("الطبيعيات", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1l5MkyOqx98j4NJ8_nSorooVx-MTkgbA1/preview"),
                 // تحديث اللغة العربية
-                createSubject("اللغة العربية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1D-s2ddrAOVVAnWtcst473tyqXbyGJV78/view?usp=drivesdk"),
-                createSubject("الرياضيات", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1VmFNZOIpJytzxGhssMwRSXJvJseLNhc_/view?usp=drivesdk"),
+                createSubject("اللغة العربية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1D-s2ddrAOVVAnWtcst473tyqXbyGJV78/preview"),
+                createSubject("الرياضيات", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1VmFNZOIpJytzxGhssMwRSXJvJseLNhc_/preview"),
                 // تحديث اللغة الإنكليزية
-                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1XRYfzOFh1R0eLFfbK0Mk7OreVd6uqEm3/view?usp=drivesdk"),
+                createSubject("اللغة الإنكليزية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1XRYfzOFh1R0eLFfbK0Mk7OreVd6uqEm3/preview"),
                 // تحديث التربية الإسلامية
-                createSubject("التربية الإسلامية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1NtgFUMU4Hb4f86wiNDPlVFWHWnpFIu-t/view?usp=drivesdk")
+                createSubject("التربية الإسلامية", "كتاب أساسي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1NtgFUMU4Hb4f86wiNDPlVFWHWnpFIu-t/preview")
             ]
         };
 
@@ -1038,26 +1505,26 @@
                 'elec_1': { name: stageNames['1'], books: [
                     ...generalSubjects['1'],
                     // العلوم الصناعية الكهربائية - المرحلة الأولى
-                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1hHiKutlIOVzBWHGoHYFgxY3QbrxnSpgv/view?usp=drivesdk"),
-                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الأول", "إصدار 2024"),
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1jZ3fU7z7aUFxKIa4hFoBsWpN_k19AZUe/preview"),
+                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/11zGADipLPCOeeV4pYd-ZaJ-zFUoderbR/preview"),
                     // التدريب العملي الكهربائي - المرحلة الأولى (الرابط المطلوب)
-                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1VvSKfj5uDh9jWcMS6Z54b85F5StLMcYM/view?usp=drivesdk"), 
+                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1-FDXsHQNYPbQ6gSFdTvU70S13NawA0iE/preview"), 
                 ] },
                 'elec_2': { name: stageNames['2'], books: [
                     ...generalSubjects['2'],
                     // العلوم الصناعية الكهربائية - المرحلة الثانية
-                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1V3O2fG3Ay0wpRzHu_uTY5EakgsqQI-GA/view?usp=drivesdk"),
-                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الثاني", "إصدار 2024"),
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1V3O2fG3Ay0wpRzHu_uTY5EakgsqQI-GA/preview"),
+                    createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1lOrRKkOopZb32Bmw4ILWJe9rFYWEiGb4/preview"),
                     // التدريب العملي الكهربائي - المرحلة الثانية
                     createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1UO-jcnm7BhIW7–NkdAcmt2YQkO-JBZ-/view?usp=drivesdk"),
                 ] },
                 'elec_3': { name: stageNames['3'], books: [
                     ...generalSubjects['3'],
                     // العلوم الصناعية الكهربائية - المرحلة الثالثة
-                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1nDagm7HFt1lj4vsOsk6_dSYgwBxVGdIG/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية الكهربائية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1nDagm7HFt1lj4vsOsk6_dSYgwBxVGdIG/preview"),
                     createSubject("الرسم الهندسي الكهربائي", "كتاب تطبيقي", "الثالث", "إصدار 2024"),
                     // التدريب العملي الكهربائي - المرحلة الثالثة
-                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1yC8O086OBo66IHPrVQfB0HCHFR41fmYF/view?usp=drivesdk"),
+                    createSubject("التدريب العملي الكهربائي", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1yC8O086OBo66IHPrVQfB0HCHFR41fmYF/preview"),
                 ] }
             }},
             elecs: { name: "قسم الإلكترونيك والسيطرة", link: officialLink, stages: {
@@ -1065,29 +1532,29 @@
                 'elecs_1': { name: stageNames['1'], books: [
                     ...generalSubjects['1'],
                     // أول إلكترون علوم
-                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/16JpBfQ_RJyYwqDsUmMdL_NYsayBanaLq/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1wvetwbh_wwu5Asfgtfb7K7GpGZXtm5vA/preview"),
                     // الرسم الصناعي الإلكتروني - تم إزالة رابط التدريب العملي منه
-                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الأول", "إصدار 2024"), 
+                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/16pQ4w6-BnqhOTb0igth7YEO8jwbI-lmi/preview"), 
                     // التدريب العملي الإلكتروني - تم إضافة رابط التدريب العملي (مرحلة أولى) المطلوب
-                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/126WyRH3mv8CuI0yrGkeiTgPSHE5G3qL_/view?usp=drivesdk"), 
+                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1WFWj2QR5dZLXQs5pkVv6e1t7Wf_h0rdq/preview"), 
                 ] },
                 'elecs_2': { name: stageNames['2'], books: [
                     ...generalSubjects['2'],
                     // العلوم الصناعيه الكترونيك الثاني
-                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MyvqU9lKs3ZfK_aeak4L-mdNUHOqwTn5/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MyvqU9lKs3ZfK_aeak4L-mdNUHOqwTn5/preview"),
                     // الرسم الصناعي الكترونيك وسيطرة الثاني
-                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1Zl094Z0apla7_ZQPQ01DHs-PUfKccy9G/view?usp=drivesdk"),
+                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1Zl094Z0apla7_ZQPQ01DHs-PUfKccy9G/preview"),
                     // التدريب العملي الإلكتروني - تم إضافة رابط التدريب العملي (مرحلة ثانية) المطلوب
-                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MB0u1mEz5tgjhRV-gAGZv5dwHRTwF8SR/view?usp=drivesdk"), 
+                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1MB0u1mEz5tgjhRV-gAGZv5dwHRTwF8SR/preview"), 
                 ] },
                 'elecs_3': { name: stageNames['3'], books: [
                     ...generalSubjects['3'],
                     // العلوم الصناعي الكترونيك والسيطرة الثالثه
-                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1XssU-nGxtHEi3oHUqLFtHCRDLgNmgXjH/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية الإلكترونية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1XssU-nGxtHEi3oHUqLFtHCRDLgNmgXjH/preview"),
                     // الرسم الصناعي الكترونيك والسيطرة الثالث
-                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1hWdVITONaKf8p7D5wZqkYLJjfqIEql4X/view?usp=drivesdk"),
+                    createSubject("الرسم الصناعي الإلكتروني", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1hWdVITONaKf8p7D5wZqkYLJjfqIEql4X/preview"),
                     // التدريب العملي إلكترون وسيطره الثالث مهني
-                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1l-b_ok2-Ogfxk7-mR6Bol99jlVqxplHd/view?usp=drivesdk"),
+                    createSubject("التدريب العملي الإلكتروني", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1l-b_ok2-Ogfxk7-mR6Bol99jlVqxplHd/preview"),
                 ] }
             }},
             media: { name: "قسم تكنولوجيا الإعلام", link: officialLink, stages: {
@@ -1095,29 +1562,29 @@
                 'media_1': { name: stageNames['1'], books: [
                     ...generalSubjects['1'],
                     // العلوم تكنلوجيا إعلام الاولى
-                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1OK95pQuOg3z40WyGFONyy-oYhHkRiUDD/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1OK95pQuOg3z40WyGFONyy-oYhHkRiUDD/preview"),
                     // الرسم مرحلة أولى تكنلوجيا إعلام (تم التحديث)
-                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1imUBO6mxJcQcUhEKEpgs_CQ-Hr1uH3Xu/view?usp=drivesdk"), 
+                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1imUBO6mxJcQcUhEKEpgs_CQ-Hr1uH3Xu/preview"), 
                     // العملي تكنلوجيا إعلام الاول
-                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1HgOdWicSSPoL8YWCj2cqMETpnpW1MVP9/view?usp=drivesdk"),
+                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1HgOdWicSSPoL8YWCj2cqMETpnpW1MVP9/preview"),
                 ] },
                 'media_2': { name: stageNames['2'], books: [
                     ...generalSubjects['2'],
                     // العلوم الصناعية تكنلوجيا إعلام الثاني
-                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1QaOaG39SWdRmPP_uD0S5VkgV4unYRCZ1/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1QaOaG39SWdRmPP_uD0S5VkgV4unYRCZ1/preview"),
                     // الرسم الصناعي تكنلوجيا إعلام الثاني
-                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1xXyijQ89qYjo93J2a3eMy8TmzpBgprhe/view?usp=drivesdk"),
+                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1xXyijQ89qYjo93J2a3eMy8TmzpBgprhe/preview"),
                     // التدريب العملي تكنلوجيا إعلام الثاني مهني
-                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1FL0sjrjsCQYRraahDiFNoMVsHb0epKVD/view?usp=drivesdk"),
+                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1FL0sjrjsCQYRraahDiFNoMVsHb0epKVD/preview"),
                 ] },
                 'media_3': { name: stageNames['3'], books: [
                     ...generalSubjects['3'],
                     // العلوم الثالث تكنلوجيا إعلام
-                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/15-0kmdpnlbGG228fRBJspH46tThwK56G/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية لتكنولوجيا الإعلام", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/15-0kmdpnlbGG228fRBJspH46tThwK56G/preview"),
                     // الرسم الصناعي تكنلوجيا إعلام الصف الثالث مهني
-                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1zzbzuDKaJbED-1SAkw41wlN2fZb2UmF8/view?usp=drivesdk"),
+                    createSubject("الرسم الصناعي لتكنولوجيا الإعلام", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1zzbzuDKaJbED-1SAkw41wlN2fZb2UmF8/preview"),
                     // التدريب العملي مرحلة الثالث مهني تكنلوجيا إعلام
-                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1Oz1NJoe2rmr55RtvEyh1Po3wqq0MHUFp/view?usp=drivesdk"),
+                    createSubject("التدريب العملي لتكنولوجيا الإعلام", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1Oz1NJoe2rmr55RtvEyh1Po3wqq0MHUFp/preview"),
                 ] }
             }},
             med: { name: "قسم الأجهزة الطبية", link: officialLink, stages: {
@@ -1125,28 +1592,28 @@
                 'med_1': { name: stageNames['1'], books: [
                     ...generalSubjects['1'],
                     // العلوم الصناعيه الاول اجهزه طبيع
-                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1Bi3nBz6R-MAE4eyCvpKMuWxlmmBcmypb/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1d8-I6mzRpCaoUPduexb5qNIVUWQ5aFg6/preview"),
                     // التدريب العملي الصناعي اجهزه طبيه الاول
-                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1qfaQUpMnMmTrDqe-z0mF-xXPboLyDuMv/view?usp=drivesdk"),
-                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الأول", "إصدار 2024"), 
+                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1ezjvnuyaqtiA0KE8FSx_iPoWrxuBuDTC/preview"),
+                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الأول", "إصدار 2024", "https://drive.google.com/file/d/1yCwrRiFadxH8aoy0gPrOKiTlhZtVBiTq/preview"), 
                 ] },
                 'med_2': { name: stageNames['2'], books: [
                     ...generalSubjects['2'],
                     // علوم أجهزه طبيه الثاني
-                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1hBiVoeMEX1bXyN_9qnPAzwtLxZcaP1TY/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1hBiVoeMEX1bXyN_9qnPAzwtLxZcaP1TY/preview"),
                     // الرسم الصناعي اجهزه طبية الصف الثاني
-                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1KeJDy3y4swTwszo640Ts0Xjllga6i_U2/view?usp=drivesdk"),
+                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1KeJDy3y4swTwszo640Ts0Xjllga6i_U2/preview"),
                     // التدريب العملي الاجهزه الطبية للصف الثاني
-                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1gU8tFy0gUxe_Sngx1U51hBlF01QO_ExY/view?usp=drivesdk"),
+                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثاني", "إصدار 2024", "https://drive.google.com/file/d/1gU8tFy0gUxe_Sngx1U51hBlF01QO_ExY/preview"),
                 ] },
                 'med_3': { name: stageNames['3'], books: [
                     ...generalSubjects['3'],
                     // العلوم الاجهزه طبية الصف الثالث مهني 
-                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1RFvJKEfKmmDrUimYpd60iVfb05g-hQcQ/view?usp=drivesdk"),
+                    createSubject("العلوم الصناعية للأجهزة الطبية", "كتاب تخصصي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1RFvJKEfKmmDrUimYpd60iVfb05g-hQcQ/preview"),
                     // رسم مرحلة ثالثه اجهزه طبية (تم التحديث)
-                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1qXF-gEcc1bFPxMQsN8k4eARjNvhqBZNv/view?usp=drivesdk"), 
+                    createSubject("الرسم الصناعي للأجهزة الطبية", "كتاب تطبيقي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1qXF-gEcc1bFPxMQsN8k4eARjNvhqBZNv/preview"), 
                     // العملي اجهزه طبية مرحلة ثالثة (تم التحديث)
-                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1elVyGMVsHGdTdHFzGhJfS6W2v0Ki2Idy/view?usp=drivesdk"), 
+                    createSubject("التدريب العملي للأجهزة الطبية", "كتاب عملي", "الثالث", "إصدار 2024", "https://drive.google.com/file/d/1elVyGMVsHGdTdHFzGhJfS6W2v0Ki2Idy/preview"), 
                 ] }
             }},
             general: { name: "المواد العامة المشتركة", link: officialLink, stages: {
@@ -1834,6 +2301,15 @@
 
         function appendToCalc(value) {
             const display = document.getElementById('calc-display');
+            
+            // منع إدخال عمليات متتالية
+            if (['+', '-', '*', '/'].includes(value)) {
+                const lastChar = display.value[display.value.length - 1];
+                if (['+', '-', '*', '/'].includes(lastChar)) {
+                    return;
+                }
+            }
+            
             display.value += value;
         }
 
@@ -1842,16 +2318,35 @@
             display.value = '';
         }
 
+        function deleteLastChar() {
+            const display = document.getElementById('calc-display');
+            display.value = display.value.slice(0, -1);
+        }
+
         function calculateResult() {
             const display = document.getElementById('calc-display');
             try {
-                const result = eval(display.value);
-                display.value = result;
+                if (display.value === '') {
+                    return;
+                }
+                
+                // التحقق من العمليات الصحيحة
+                const expression = display.value.replace(/÷/g, '/').replace(/×/g, '*').replace(/−/g, '-');
+                
+                // تقييم العملية الحسابية
+                const result = Function('"use strict"; return (' + expression + ')')();
+                
+                // تنسيق النتيجة
+                if (Number.isFinite(result)) {
+                    display.value = Math.round(result * 100000000) / 100000000;
+                } else {
+                    display.value = 'خطأ';
+                }
             } catch (error) {
-                display.value = 'خطأ';
+                display.value = 'خطأ في الصيغة';
                 setTimeout(() => {
                     display.value = '';
-                }, 1500);
+                }, 2000);
             }
         }
 
@@ -1944,6 +2439,272 @@
             }
         }
 
-    </script>
+
+    // --- منطق ميزة التدريب على الرسم الهندسي ---
+    let canvas, ctx;
+    let isDrawing = false;
+    let startX, startY;
+    let currentX, currentY;
+    let tSquareY = 100;
+    let autoCorrect = true;
+
+    function initDrawingBoard() {
+        canvas = document.getElementById('drawingCanvas');
+        if (!canvas) return;
+        ctx = canvas.getContext('2d');
+        
+        // ضبط الحجم
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        
+        // دعم اللمس
+        canvas.addEventListener('touchstart', (e) => { 
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent("mousedown", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }, { passive: false });
+        
+        canvas.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }, { passive: false });
+        
+        canvas.addEventListener('touchend', (e) => {
+            const mouseEvent = new MouseEvent("mouseup", {});
+            canvas.dispatchEvent(mouseEvent);
+        }, { passive: false });
+    }
+
+    function startDrawing(e) {
+        isDrawing = true;
+        const rect = canvas.getBoundingClientRect();
+        startX = e.clientX - rect.left;
+        startY = e.clientY - rect.top;
+        
+        // الالتزام بالمسطرة T إذا كانت قريبة
+        if (Math.abs(startY - tSquareY) < 25) {
+            startY = tSquareY;
+        }
+    }
+
+    function draw(e) {
+        const rect = canvas.getBoundingClientRect();
+        const mouseY = e.clientY - rect.top;
+        
+        if (!isDrawing) {
+            // تحريك المسطرة
+            if (mouseY > 0 && mouseY < canvas.height) {
+                tSquareY = mouseY;
+                document.getElementById('tSquare').style.top = tSquareY + 'px';
+            }
+            return;
+        }
+        
+        currentX = e.clientX - rect.left;
+        currentY = e.clientY - rect.top;
+    }
+
+    function stopDrawing() {
+        if (!isDrawing) return;
+        isDrawing = false;
+
+        // التصحيح التلقائي
+        if (autoCorrect) {
+            // تصحيح أفقي
+            if (Math.abs(currentY - startY) < 30) {
+                currentY = startY;
+            }
+            // تصحيح عمودي
+            else if (Math.abs(currentX - startX) < 30) {
+                currentX = startX;
+            }
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(currentX, currentY);
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+
+    function clearBoard() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function toggleAutoCorrect() {
+        autoCorrect = !autoCorrect;
+        const btn = document.getElementById('toggleCorrectBtn');
+        btn.textContent = autoCorrect ? 'التصحيح: مفعل' : 'التصحيح: معطل';
+        btn.style.backgroundColor = autoCorrect ? 'var(--primary-color)' : '#777';
+    }
+
+    // ========================================
+    // دوال التحكم بنافذة تدريب الرسم المنبثقة
+    // ========================================
+
+    /**
+     * فتح نافذة ملاحظة تدريب الرسم
+     */
+    function openDrawingTrainingModal() {
+        const modal = document.getElementById('drawingTrainingModal');
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // منع التمرير خلف النافذة
+    }
+
+    /**
+     * إغلاق نافذة ملاحظة تدريب الرسم
+     */
+    function closeDrawingTrainingModal() {
+        const modal = document.getElementById('drawingTrainingModal');
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto'; // استعادة التمرير
+    }
+
+    /**
+     * إغلاق النافذة عند الضغط خارجها
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('drawingTrainingModal');
+        
+        if (modal) {
+            modal.addEventListener('click', function(event) {
+                // إذا تم الضغط على خلفية النافذة (وليس على المحتوى)
+                if (event.target === modal) {
+                    closeDrawingTrainingModal();
+                }
+            });
+        }
+    });
+
+    /**
+     * دعم لوحة المفاتيح - إغلاق النافذة بالضغط على Escape
+     */
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeDrawingTrainingModal();
+        }
+    });
+        </script>
+
+    <!-- نافذة التدريب على الرسم الهندسي -->
+    <div id="drawingTraining" class="modal">
+        <div class="modal-content" style="max-width: 800px; width: 95%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: var(--primary-color); margin: 0;">تدريب الرسم الهندسي</h2>
+                <button onclick="closeModal('drawingTraining')" style="background: none; font-size: 1.5rem; color: var(--text-color);">✕</button>
+            </div>
+            
+            <div class="drawing-board-container">
+                <div id="tSquare" class="t-square"></div>
+                <canvas id="drawingCanvas"></canvas>
+            </div>
+            
+            <div class="drawing-controls">
+                <button class="draw-btn" onclick="clearBoard()" style="background-color: #dc3545;">مسح اللوحة</button>
+                <button id="toggleCorrectBtn" class="draw-btn" onclick="toggleAutoCorrect()">التصحيح: مفعل</button>
+                <button class="draw-btn" onclick="alert('استخدم المسطرة T للرسم الأفقي الدقيق. القلم سيصحح نفسه تلقائياً عند الخطأ.')">تعليمات</button>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666; text-align: center;">
+                * حرك الماوس لتغيير موقع مسطرة T. ارسم بالقرب منها للحصول على خطوط أفقية مثالية.
+            </p>
+        </div>
+    </div>
+
+    <!-- النافذة المنبثقة لملاحظة تدريب الرسم -->
+    <div class="drawing-training-modal" id="drawingTrainingModal">
+        <div class="drawing-training-modal-content">
+            <!-- زر الإغلاق -->
+            <button class="drawing-training-modal-close" onclick="closeDrawingTrainingModal()">&times;</button>
+
+            <!-- رأس النافذة -->
+            <div class="drawing-training-modal-header">
+                <span class="icon">📐</span>
+                <h2>تدريب الرسم الهندسي</h2>
+                <p>ملاحظات مهمة قبل البدء</p>
+            </div>
+
+            <!-- محتوى النافذة -->
+            <div class="drawing-training-modal-body">
+                <!-- قسم معلومات المدرسة -->
+                <div class="drawing-training-section">
+                    <h3>
+                        <span class="section-icon">👨‍🏫</span>
+                        مُدرسة المادة
+                    </h3>
+                    <div class="instructor-name">
+                        المهندسة: ضحى عواد خلف
+                    </div>
+                </div>
+
+                <!-- قسم الأدوات المطلوبة -->
+                <div class="drawing-training-section">
+                    <h3>
+                        <span class="section-icon">🛠️</span>
+                        الأدوات والمستلزمات المطلوبة
+                    </h3>
+                    <p>يجب توفير الأدوات التالية قبل بدء التدريب:</p>
+                    
+                    <table class="tools-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>الأداة</th>
+                                <th>الوصف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tool-number">1</td>
+                                <td class="tool-name">بورد رسم</td>
+                                <td>لوحة الرسم - سطح عمل مستوٍ وثابت ومناسب للرسم الهندسي</td>
+                            </tr>
+                            <tr>
+                                <td class="tool-number">2</td>
+                                <td class="tool-name">مسطرة حرف T</td>
+                                <td>أداة أساسية لرسم الخطوط الأفقية المتوازية والعمودية بدقة عالية</td>
+                            </tr>
+                            <tr>
+                                <td class="tool-number">3</td>
+                                <td class="tool-name">مسطرة دوائر</td>
+                                <td>قالب الدوائر - لتسهيل رسم الدوائر والأقواس بأحجام مختلفة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- تنبيه مهم -->
+                <div class="important-note">
+                    <p>
+                        <span class="note-icon">⚠️</span>
+                        <strong>تنبيه مهم:</strong> تأكد من توفير جميع الأدوات المذكورة أعلاه قبل الدخول إلى الجلسة التدريبية لضمان أقصى استفادة من التدريب.
+                    </p>
+                </div>
+            </div>
+
+            <!-- تذييل النافذة -->
+            <div class="drawing-training-modal-footer">
+                <button onclick="closeDrawingTrainingModal()">فهمت - ابدأ التدريب</button>
+            </div>
+        </div>
+    </div>
+
+    
+        
+    
 </body>
 </html>
