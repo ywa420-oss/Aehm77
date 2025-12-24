@@ -2190,11 +2190,17 @@
         
         // تهيئة الوضع الليلي/النهاري وحالة الدخول عند التحميل 
         
+        
         document.addEventListener('DOMContentLoaded', () => {
             const splash = document.getElementById('splash-screen');
             const progressBar = document.getElementById('main-progress-bar');
             
-            // تحريك شريط التقدم
+            // تهيئة الوضع الليلي فوراً
+            let savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+
             let width = 0;
             const interval = setInterval(() => {
                 if (width >= 100) {
@@ -2204,9 +2210,8 @@
                     width += 1;
                     if(progressBar) progressBar.style.width = width + '%';
                 }
-            }, 20); // يكتمل في حوالي 2 ثانية
+            }, 20);
 
-            // وظيفة لإخفاء شاشة الترحيب
             const hideSplash = () => {
                 setTimeout(() => {
                     if(splash) {
@@ -2218,7 +2223,8 @@
                 }, 500);
             };
 
-            const savedTheme = localStorage.getItem('theme');
+
+            
             const autoDarkModeCheckbox = document.getElementById('autoDarkMode');
             
             if (savedTheme === 'dark') {
