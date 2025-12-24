@@ -2256,6 +2256,8 @@
                 if (supportFab) { supportFab.style.display = 'flex'; supportFab.classList.remove('hidden'); }
                 
                 updateProfileModal();
+                loadProfilePicture(); // **تمت الإضافة: تحميل الصورة الشخصية عند التحميل**
+                populateAvatars(); // **تمت الإضافة: ملء شبكة الصور الجاهزة عند التحميل**
             } else {
                 loginScreen.style.display = 'block';
                 mainAppContainer.style.display = 'none';
@@ -2273,6 +2275,11 @@
             
             // تهيئة قائمة الانذارات
             updateSimulatedWarnings();
+            
+            // **تمت الإضافة: تهيئة الوضع الليلي/النهاري عند التحميل**
+            if (autoDarkModeCheckbox) {
+                autoDarkModeCheckbox.checked = savedTheme === 'dark';
+            }
         });
 
         // إغلاق النافذة عند النقر خارجها
@@ -2294,6 +2301,19 @@
                 }
             });
         }
+        
+        // ربط حقل البحث الرئيسي بحدث الإدخال
+        if (mainSearchInput) {
+            mainSearchInput.addEventListener('input', syncSearchInput);
+        }
+        
+        // ربط حقل البحث في المتصفح بحدث الإدخال
+        if (browserSearchInput) {
+            browserSearchInput.addEventListener('input', filterBrowserContent);
+        }
+        
+        // **تمت الإضافة: ربط زر تبديل الوضع الخارجي بدالة التبديل**
+        if (modeToggle) modeToggle.addEventListener('click', toggleDarkMode);
 
         // ===========================================
         // =    وظائف الآلة الحاسبة                  =
